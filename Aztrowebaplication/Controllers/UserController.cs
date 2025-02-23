@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Aztrowebaplication.Services;
+using Aztrowebaplication.Models;
 
 namespace Aztrowebaplication.Controllers;
 
@@ -6,16 +8,25 @@ namespace Aztrowebaplication.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
+    private readonly UserServices userServices = new();
+
     [HttpGet]
     public IActionResult GetAllusers()
     {
-        return Ok("Get all users");
+        var users = userServices.GetAllUsers();
+        return Ok(users);
     }
 
     [HttpGet("{id}")]
     public IActionResult GetUserById(int id)
     {
-        return Ok("Get user by id"+ id);
+        var user = userServices.GetUserById(id);
+        
+        if(user == null)
+        {
+            return NotFound(new ErrorResponse {Message = "User not found", StatusCode = 404, Title = "Not Found"});
+        }
+        return Ok(user);
     }
     
     [HttpPost]
