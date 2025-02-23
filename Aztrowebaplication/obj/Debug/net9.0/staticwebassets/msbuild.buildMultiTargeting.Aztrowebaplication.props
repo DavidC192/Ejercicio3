@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Aztrowebaplication.props" />
+</Project>

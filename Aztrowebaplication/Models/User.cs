@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AztroWebApplication.Models
+namespace Aztrowebaplication.Models
 {
     public class User
     {

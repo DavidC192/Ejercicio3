@@ -1,4 +1,4 @@
-namespace AztroWebApplication.Models
+namespace Aztrowebaplication.Models
 {
     public class ErrorResponse
     {

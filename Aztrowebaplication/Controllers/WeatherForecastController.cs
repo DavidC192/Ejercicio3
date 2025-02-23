@@ -3,30 +3,36 @@ using Microsoft.AspNetCore.Mvc;
 namespace Aztrowebaplication.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+[Route("api/[controller]")]
+public class UserController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
+    [HttpGet]
+    public IActionResult GetAllusers()
     {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
+        return Ok("Get all users");
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    [HttpGet("{id}")]
+    public IActionResult GetUserById(int id)
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        return Ok("Get user by id"+ id);
+    }
+    
+    [HttpPost]
+    public IActionResult createUser()
+    {
+        return Ok("User created");
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateUser(int id)
+    {
+        return Ok("Update user by id"+ id);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteUser(int id)
+    {
+        return Ok("Delete user by id"+ id);
     }
 }
