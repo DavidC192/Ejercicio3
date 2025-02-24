@@ -18,24 +18,24 @@ namespace Aztrowebaplication.Data
 
         public async Task<IEnumerable<User>> GetAllUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.User.ToListAsync();
         }
 
         public async Task<User?> GetUserById(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.User.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<User> CreateUser(User user)
         {
-            _context.Users.Add(user);
+            _context.User.Add(user);
             await _context.SaveChangesAsync();
             return user;
         }
 
         public async Task<User> UpdateUserById(int id, User user)
         {
-            var userToUpdate = _context.Users.FirstOrDefault(x => x.Id == id);
+            var userToUpdate = _context.User.FirstOrDefault(x => x.Id == id);
             if (userToUpdate == null)
             {
                 return null;
@@ -51,13 +51,13 @@ namespace Aztrowebaplication.Data
 
         public async Task<User> DeleteUserById(int id)
         {
-            var userToDelete = _context.Users.FirstOrDefault(x => x.Id == id);
+            var userToDelete = _context.User.FirstOrDefault(x => x.Id == id);
             if (userToDelete == null)
             {
                 return null;
             }
 
-            _context.Users.Remove(userToDelete);
+            _context.User.Remove(userToDelete);
             await _context.SaveChangesAsync();
             return userToDelete;
         }

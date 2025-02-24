@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Aztrowebaplication.Services;
 using Aztrowebaplication.Models;
+using Aztrowebaplication.Repositories;
 
 namespace Aztrowebaplication.Controllers;
 
@@ -8,12 +9,17 @@ namespace Aztrowebaplication.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly UserServices userServices = new();
+    private readonly UserServices userServices;
+
+    public UserController(ApplicationDbContext context)
+    {
+        userServices = new UserServices(context);
+    }
 
     [HttpGet]
-    public IActionResult GetAllusers()
+    public async Task<IActionResult> GetAllusers()
     {
-        var users = userServices.GetAllUsers();
+        var users = await userServices.GetAllUsers();
         return Ok(users);
     }
 

@@ -1,19 +1,24 @@
+using Aztrowebaplication.Data;
 using Aztrowebaplication.Models;
+using Aztrowebaplication.Repositories;
 
 namespace Aztrowebaplication.Services
 {
     public class UserServices
     {
-        public List<User> GetAllUsers()
+        private readonly UserRepository userRepository;
+
+        public UserServices(ApplicationDbContext context)
         {
-            var user1 = new User{Name = "User1", Email = "", Age = 10};
-            var user2 = new User{Name = "User2", Email = "", Age = 11};
-
-            var respondDataBase = new List<User>{user1, user2};
-
-            return respondDataBase;
+            userRepository = new UserRepository(context);
         }
-        public User GetUserById(int id)
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = await userRepository.GetAllUsers();
+            return users.ToList();
+        }
+        public User? GetUserById(int id)
         {
             var user1 = new User{Name = "User1", Email = "", Age = 10};
 
